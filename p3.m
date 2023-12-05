@@ -1,7 +1,7 @@
 clc;
 
 % general parameters
-global l1 l2 T w tstep K; 
+global l1 l2 T w tstep; 
 % ellipse/circle parameters
 global S1 S2 R; 
 
@@ -12,7 +12,6 @@ w = 2*pi / T; % angular velocity
 R = 1.5;
 S1 = 2.5;
 S2 = 0.5;
-K = 1 / 5.0;
 tstep = 0.1;
 time_vec = 0:tstep:3*T;
 
@@ -197,7 +196,11 @@ end
 
 
 function dth = closedLoopTaskSpaceControl(t, th, xddot, yddot, xd, yd)
-    global l1 l2 tstep K;
+    global l1 l2 tstep;
+
+    K = [5 0 0;
+         0 10 0;
+         0 0 0];
 
     % current time step
     t_idx = 1+int32(t/tstep);
@@ -214,7 +217,7 @@ function dth = closedLoopTaskSpaceControl(t, th, xddot, yddot, xd, yd)
     
     
     % apply feedback 
-    xy_ee_feedback = [xddot(t_idx); yddot(t_idx); 0] + K*eye(3)*([xd(t_idx);yd(t_idx);0]-xy_ee_actual);
+    xy_ee_feedback = [xddot(t_idx); yddot(t_idx); 0] + K*([xd(t_idx);yd(t_idx);0]-xy_ee_actual);
 
     % compute joints 
     dth = pinv(Jp) * xy_ee_feedback; 
