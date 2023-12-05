@@ -198,7 +198,7 @@ end
 function dth = openLoopJointSpaceControl(t, th, xddot, yddot)
     global l1 l2 tstep;
 
-    % compute Jacobian with added constraint: theta1dot + theta2dot = 0
+    % compute Jacobian with added constraint: theta1dot = 0
     Jp = [1, 0, -l1*sin(th(3)+th(4))-l2*sin(th(3)+th(4)+th(5)), -l1*sin(th(3)+th(4))-l2*sin(th(3)+th(4)+th(5)), -l2*sin(th(3)+th(4)+th(5));
           0, 1, l1*cos(th(3)+th(4))+l2*cos(th(3)+th(4)+th(5)), l1*cos(th(3)+th(4))+l2*cos(th(3)+th(4)+th(5)), l2*cos(th(3)+th(4)+th(5));     
           -sin(th(3)), cos(th(3)), 0, 0, 0;
