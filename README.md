@@ -5,7 +5,7 @@ Final project for AUE-8220.
 
 ## Matlab Scripts
 
-implementations for individual problems are as follows
+Implementations for individual problems are as follows
 
 - *p2_1.m*: open loop control with pseudoinverse solution
 - *p2_2_1.m*: redundancy resolution with added constraint theta1dot + theta2dot = 0
